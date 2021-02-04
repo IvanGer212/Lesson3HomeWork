@@ -25,9 +25,35 @@ public class Main {
         carpet (ковер, не фрукт, но это всего лишь пример), будет выведено:
 ####e##########
          */
+        Scanner scaner = new Scanner(System.in);
+        int n = 3;
         int min = 0, max = 10;
-        int putNum = getNumFromConsole(min,max);
-        int randomNum = generateRandomNum(min,max);
+        int start;
+        do {
+            int count = 0;
+            int randomNum = generateRandomNum(min,max);
+            do {
+                int putNum = getNumFromConsole(min, max);
+                if (putNum == randomNum) {
+                    System.out.println("Поздравляем, Вы угадали число! ");
+                    System.out.println("Победа!!!");
+                    break;
+                } else if (putNum < randomNum) {
+                    System.out.println("Загаданное число больше");
+                } else if (putNum > randomNum) {
+                    System.out.println("Загаданное число меньше");
+                }
+                count++;
+                if (n-count != 0){
+                System.out.printf("Количество попыток %d %n", n - count);
+                } else System.out.println("Вы проиграли!");
+
+            } while (count < n);
+            System.out.println("Было загадано число " + randomNum);
+            System.out.println("Повторить игру еще раз? 1 - да; 0 - нет");
+            start = scaner.nextInt();
+
+        } while (start != 0);
 
 
     }
@@ -40,11 +66,15 @@ public class Main {
         int putNum;
         Scanner scanner = new Scanner(System.in);
         do {
-            System.out.printf("Угадайте число от %d до %d", min, max);
+            System.out.printf("Угадайте число от %d до %d %n", min, max-1);
             putNum = scanner.nextInt(max);
+            if (putNum<min || putNum>max){
+                System.out.println("Введено не верное число");
+            }
         }
         while (putNum<min || putNum>max);
         return putNum;
 
     }
+
 }
