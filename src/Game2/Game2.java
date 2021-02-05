@@ -8,12 +8,14 @@ public class Game2 {
         String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot",
                 "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", "pea",
                 "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
-        chooseTheWord(words);
+        boolean a=false;
+        // chooseTheWord(words);
         String compWord = new String();
         compWord = chooseTheWord(words);
         System.out.println(compWord);
-        checkTheWord(compWord,readUserWord());
-
+        do  {
+            a = checkTheWord(compWord, readUserWord());
+        } while (a == false);
 
     }
     public static String chooseTheWord (String[] words){
@@ -28,20 +30,27 @@ public class Game2 {
         return scanner.nextLine();
     }
 
-    public static void checkTheWord (String randWord, String putWord){
-        int n = randWord.length()-1;
-        for (int i = 0; i<15; i++){
-            if (i<n){
-                if (putWord.charAt(i)==randWord.charAt(i)){
-                    System.out.print(putWord.charAt(i));
-                }else System.out.print("#");
+    public static boolean checkTheWord (String randWord, String putWord){
+        int min = Math.min(randWord.length()-1,putWord.length()-1);
+        if (randWord.equals(putWord)){
+            System.out.println("Вы угадали слово!");
+            System.out.println("Было загадано слово: "+randWord);
+            return true;
+        } else {
+            System.out.println("Задумано другое число");
+            for (int i = 0; i < 15; i++) {
+                if (i < min) {
+                    if (putWord.charAt(i) == randWord.charAt(i)) {
+                        System.out.print(putWord.charAt(i));
+                    } else System.out.print("#");
+                } else {
+                    System.out.print("#");
+                }
             }
-            else {
-                System.out.print("#");
-            }
-            }
+        }
         System.out.println();
-        System.out.println("Загадано слово: "+randWord);
+        System.out.println("Попробуйте ещё раз!");
+        return false;
 
     }
 }
