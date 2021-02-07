@@ -8,14 +8,10 @@ public class Game2 {
         String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot",
                 "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", "pea",
                 "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
-        boolean a=false;
-        // chooseTheWord(words);
-        String compWord = new String();
-        compWord = chooseTheWord(words);
-        System.out.println(compWord);
-        do  {
-            a = checkTheWord(compWord, readUserWord());
-        } while (a == false);
+        boolean a;
+        String compWord = chooseTheWord(words);
+        System.out.println("Было задуманно слово. Вам нужно его угадать");
+       checkTheWord(compWord, readUserWord());
 
     }
     public static String chooseTheWord (String[] words){
@@ -30,14 +26,15 @@ public class Game2 {
         return scanner.nextLine();
     }
 
-    public static boolean checkTheWord (String randWord, String putWord){
+    public static void checkTheWord (String randWord, String putWord){
         int min = Math.min(randWord.length()-1,putWord.length()-1);
         if (randWord.equals(putWord)){
             System.out.println("Вы угадали слово!");
             System.out.println("Было загадано слово: "+randWord);
-            return true;
-        } else {
-            System.out.println("Задумано другое число");
+            return;
+        }
+        else {
+            System.out.println("Задумано другое слово");
             for (int i = 0; i < 15; i++) {
                 if (i < min) {
                     if (putWord.charAt(i) == randWord.charAt(i)) {
@@ -50,7 +47,7 @@ public class Game2 {
         }
         System.out.println();
         System.out.println("Попробуйте ещё раз!");
-        return false;
+        checkTheWord(randWord, readUserWord());
 
     }
 }
